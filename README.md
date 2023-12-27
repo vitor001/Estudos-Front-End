@@ -1,3 +1,3 @@
-# Exercicios javascript
+# Estudos Front-end
 
-Esse é meu reposiptório de exercícios feitos em javascript para estudos.
+Esse é meu repositório de exercícios feitos em HTML, CSS e javascript para estudos.
