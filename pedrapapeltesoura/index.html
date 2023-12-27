@@ -1,0 +1,155 @@
+<html>
+    <body>
+        <style>
+            .player-options img,
+            .enemy-options img
+            {
+                max-width: 200px;
+                opacity: 0.3;
+                cursor: pointer;
+            }
+
+            .player-options,.enemy-options{
+                width:50%;
+            }
+
+            .align{
+                display: flex;
+            }
+        </style>
+        <h1 style="text-align: center;">Pedra, papel ou tesoura!</h1>
+        <h2 class="vencedor" style="text-align: center;"></h2>
+        <h3 class="placar" style="text-align: center;"></h3>
+        <hr>
+        <div class="align">
+            <div class="player-options">
+                <div><img opt="pedra" src="rock.png" /></div>
+                <div><img opt="papel" src="paper.png" /></div>
+                <div><img opt="tesoura" src="scisor.png" /></div>
+            </div>
+            <div class="enemy-options">
+                <div><img opt="pedra" src="rock.png" /></div>
+                <div><img opt="papel" src="paper.png" /></div>
+                <div><img opt="tesoura" src="scisor.png" /></div>
+            </div>
+    </div>
+        <script>
+// variáveis
+            var elementos = document.querySelectorAll(".player-options div > img");
+            var vencedor = document.querySelector(".vencedor");
+            var placar = document.querySelector(".placar");
+            var vitoriasPlayer = 0;
+            var vitoriasInimigo = 0;
+            var playerOpt = "";
+            var inimigoOpt = "";
+
+// funções
+            function contaVitorias(){
+                placar.innerHTML = "Player " + vitoriasPlayer + " x " + vitoriasInimigo + " Computador";
+            };
+
+            function validarVencedor(){
+
+                if(playerOpt == "pedra"){
+                    
+                    if(inimigoOpt == "pedra"){
+                        vencedor.innerHTML = "Empate!";
+                    }
+
+                    if(inimigoOpt == "papel"){
+                        vencedor.innerHTML = "Você perdeu!";
+                        vitoriasInimigo += 1;
+                    }
+
+                    if(inimigoOpt == "tesoura"){
+                        vencedor.innerHTML = "Você ganhou!";
+                        vitoriasPlayer += 1;
+                    }
+                }
+
+                if(playerOpt == "papel"){
+
+                    if(inimigoOpt == "pedra"){
+                        vencedor.innerHTML = "Você ganhou!";
+                        vitoriasPlayer += 1;
+                    }
+
+                    if(inimigoOpt == "papel"){
+                        vencedor.innerHTML = "Empate!";
+                    }
+
+                    if(inimigoOpt == "tesoura"){
+                        vencedor.innerHTML = "Você perdeu!";
+                        vitoriasInimigo += 1;
+                    }
+                }
+
+                if(playerOpt == "tesoura"){
+
+                    if(inimigoOpt == "pedra"){
+                        vencedor.innerHTML = "Você perdeu!";
+                        vitoriasInimigo += 1;
+                    }
+
+                    if(inimigoOpt == "papel"){
+                        vencedor.innerHTML = "Você ganhou!";
+                        vitoriasPlayer += 1;
+                    }
+
+                    if(inimigoOpt == "tesoura"){
+                        vencedor.innerHTML = "Empate!";
+                    }
+                }
+            }
+            
+            function resetOpacity(){
+                for(var i=0; i < elementos.length; i++){
+                    elementos[i].style.opacity = 0.3;
+                    
+                }
+            }
+
+            function resetInimigo(){
+                const enemyOptions = document.querySelectorAll('.enemy-options div > img');
+                for(var i=0; i < enemyOptions.length; i++){
+                    enemyOptions[i].style.opacity = 0.3;
+                }
+            }
+
+            function inimigoJogar(){
+                let rand = Math.floor(Math.random()*3);
+                // Math.random() retorna um numero entre 0 e 1 aleatoriamente, multiplicado por 3 para multiplicar o numero retornado por 3
+                // Math.floor arrendonda esse número
+
+                const enemyOptions = document.querySelectorAll('.enemy-options div > img');
+
+                for(var i = 0; i < enemyOptions.length; i++){
+                    if(i == rand){
+                        enemyOptions[i].style.opacity = 1;
+                        inimigoOpt = enemyOptions[i].getAttribute('opt');
+                    }
+                }
+
+                validarVencedor();
+
+            }
+            
+// evento 
+            for(var i=0; i < elementos.length; i++){
+                elementos[i].addEventListener('click', (t)=>{
+                    
+                    resetOpacity();
+                    resetInimigo();
+                    
+                    t.target.style.opacity = 1;
+                    playerOpt= t.target.getAttribute('opt');
+
+                    inimigoJogar();
+                    contaVitorias();
+                });
+            }
+
+        </script>
+
+    </body>
+</html>

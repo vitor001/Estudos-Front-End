@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider - curso js</title>
+</head>
+<body>
+    <style>
+        .container{
+            position: relative;
+            height: 500px;
+        }
+
+        .container img{
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%) ;
+            opacity: 0;
+            transition: 1s;
+        }
+
+        .bullets{
+            text-align: center;
+        }
+
+        .bullet-single{
+            margin: 0 8px;
+            display: inline-block;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: #ccc;
+            cursor: pointer;
+        }
+
+        .active-bullet{
+            background-color: #333;
+        }
+    </style>
+    <div class="container">
+        <img style="opacity: 1;" src="https://picsum.photos/seed/237/400" alt="">
+        <img src="https://picsum.photos/seed/300/400" alt="">
+        <img src="https://picsum.photos/seed/200/400" alt="">
+    </div>
+
+    <div class="bullets">
+        <div class="bullet-single active-bullet"></div>
+        <div class="bullet-single"></div>
+        <div class="bullet-single"></div>
+    </div>
+
+    <script>
+        var lastIndex = 0;
+
+        var imagens = document.querySelectorAll('.container img');
+
+        imagens.forEach((item, index)=>{
+            document.querySelectorAll('.bullet-single')[index].addEventListener('click', ()=>{
+                let lastImage = document.querySelectorAll('.container img')[lastIndex];
+                let actualImage= document.querySelectorAll('.container img')[index];
+                
+                
+
+                document.querySelectorAll('.bullet-single')[lastIndex].classList.remove('active-bullet');
+                document.querySelectorAll('.bullet-single')[index].classList.add('active-bullet');                
+
+                lastIndex  = index;
+
+                lastImage.style.opacity = 0;
+                actualImage.style.opacity = 1;
+            })
+        })
+    </script>
+</body>
+</html>
